@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>India map</title>
+    <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+    <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+</head>
+<body>
+    <div id="map" style = "height: 800px; width: 800px"></div>
+    <script>
+        var map = L.map('map', {
+        'center': [23.32208001137843,78.046875],
+        'zoom': 5,
+        'layers': [
+            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            })
+        ]
+        });
+
+        $.getJSON('../India-map-D3/data/states-india.json', function (geojson) {
+        L.geoJson(geojson, {
+            onEachFeature: function (features, layer) {
+            layer.bindPopup(features.properties.code + " : " + features.id);
+            layer.on("mouseover",function(){
+                console.log(features.id);
+            })
+            }
+        }).addTo(map);
+        });
+
+        $.getJSON('../India-map-D3/data/full_data-1.json',function(geojson){
+            alert(Object.keys(geojson.features));
+        });
+    </script>
+</body>
+</html>
