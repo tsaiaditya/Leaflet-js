@@ -21,7 +21,7 @@
         ]
         });
 
-        $.getJSON('../India-map-D3/data/states-india.json', function (geojson) {
+        $.getJSON('data/states-india.json', function (geojson) {
         L.geoJson(geojson, {
             onEachFeature: function (features, layer) {
             layer.bindPopup(features.properties.code + " : " + features.id);
